@@ -67,6 +67,8 @@ The Terraform configuration:
 
 - `talosctl`
 
+- `talos ISO image`
+
 ## ▶️ Usage
 
 ### 1️⃣ Initialize

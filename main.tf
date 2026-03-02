@@ -11,7 +11,7 @@ module "talos_cluster" {
 
   local_image = {
     name = "talos-local-image"
-    path = "/home/alex/Downloads/metal-amd64.iso"
+    path = "path/to/talos-image.iso"
   }
 
   nodes = {
