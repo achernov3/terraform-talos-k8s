@@ -73,14 +73,9 @@ variable "pool_settings" {
   })
 }
 
-variable "local_image" {
-  description = "Provide path to image. You can use local path or url"
-  type = object({
-    name = string
-    path = string
-  })
+variable "image_url" {
+  type = string
 }
-
 
 variable "memory_unit" {
   description = "General memory unit for node"

@@ -9,9 +9,12 @@ module "talos_cluster" {
   pool_settings    = null
   network_settings = null
 
-  local_image = {
-    name = "talos-local-image"
-    path = "path/to/talos-image.iso"
+  talos_image = {
+    factory = {
+      version      = "latest"
+      architecture = "amd64"
+      platform     = "metal"
+    }
   }
 
   nodes = {

@@ -1,3 +1,10 @@
+module "image_factory" {
+  source = "../image_factory"
+
+  enabled     = var.talos_image.factory != null
+  talos_image = var.talos_image
+}
+
 module "vm" {
   source = "../node"
 
@@ -7,7 +14,7 @@ module "vm" {
 
   pool_settings = var.pool_settings
 
-  local_image = var.local_image
+  image_url = try(module.image_factory.talos_image.iso, var.talos_image.local.path)
 
   network_settings = var.network_settings
 
