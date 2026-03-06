@@ -8,6 +8,7 @@ module "image_factory" {
 module "vm" {
   source = "../node"
 
+  cluster_name       = var.cluster_name
   control_plane_role = var.control_plane_role
   worker_role        = var.worker_role
   default            = var.default

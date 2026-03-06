@@ -12,6 +12,6 @@ variable "default" {
 }
 
 variable "cluster_name" {
-  default = "Name of kubernetes cluster"
-  type    = string
+  description = "Name of kubernetes cluster"
+  type        = string
 }

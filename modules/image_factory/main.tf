@@ -24,7 +24,7 @@ data "talos_image_factory_versions" "this" {
 }
 
 locals {
-  talos_image_version = var.talos_image.factory.version == local.latest ? reverse(data.talos_image_factory_versions.this.talos_versions)[0] : var.talos_image.factory.version
+  talos_image_version = var.talos_image.factory.version == local.latest ? reverse(data.talos_image_factory_versions.this[0].talos_versions)[0] : var.talos_image.factory.version
 }
 
 data "talos_image_factory_extensions_versions" "this" {
@@ -72,7 +72,7 @@ resource "talos_image_factory_schematic" "this" {
 data "talos_image_factory_urls" "this" {
   count         = var.enabled ? 1 : 0
   talos_version = local.talos_image_version
-  schematic_id  = talos_image_factory_schematic.this.id
+  schematic_id  = talos_image_factory_schematic.this[0].id
   architecture  = var.talos_image.factory.architecture
   platform      = var.talos_image.factory.platform
 }

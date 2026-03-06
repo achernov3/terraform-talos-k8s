@@ -6,7 +6,18 @@ module "talos_cluster" {
   worker_role        = local.worker_role
   default            = local.default
 
-  pool_settings    = null
+  pool_settings = {
+    name = "talos_lab"
+    type = "dir"
+    target = {
+      path = "~/talos_lab"
+      permissions = {
+        owner = "1000"
+        group = "1000"
+        mode  = "0711"
+      }
+    }
+  }
   network_settings = null
 
   talos_image = {
@@ -14,6 +25,11 @@ module "talos_cluster" {
       version      = "latest"
       architecture = "amd64"
       platform     = "metal"
+      extensions = [
+        "iscsi-tools",
+        "qemu-guest-agent",
+        "util-linux-tools"
+      ]
     }
   }
 
