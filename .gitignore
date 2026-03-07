@@ -3,3 +3,5 @@ NOTES.md
 .terraform*
 IMAGE_FACTORY.md
 *.tfstate*
+IMPROVEMENTS.md
+HA_SOLUTION.md
