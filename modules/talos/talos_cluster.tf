@@ -54,7 +54,7 @@ resource "local_file" "kubeconfig" {
 
 resource "local_file" "talosconfig" {
   content              = data.talos_client_configuration.this.talos_config
-  filename             = "${pathexpand("~")}/.talos/config"
+  filename             = "${pathexpand("~")}/.talos/${var.cluster_name}-config.yaml"
   directory_permission = "0755"
   file_permission      = "0600"
 }
@@ -62,7 +62,7 @@ resource "local_file" "talosconfig" {
 resource "local_file" "machineconfig" {
   for_each             = var.nodes
   content              = data.talos_machine_configuration.machine_configuration[each.key].machine_configuration
-  filename             = "${pathexpand("~")}/Desktop/k8s-cluster/libvirt/${var.cluster_name}-${each.key}-machine-config.yaml"
+  filename             = "${pathexpand("~")}/.talos/${var.cluster_name}/${each.key}-machine-config.yaml"
   directory_permission = "0755"
   file_permission      = "0600"
 }

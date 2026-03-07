@@ -1,2 +1,5 @@
 NOTES.md
 .terraform/
+.terraform*
+IMAGE_FACTORY.md
+*.tfstate*

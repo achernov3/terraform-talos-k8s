@@ -6,7 +6,6 @@ locals {
   }
 }
 
-
 data "libvirt_domain_interface_addresses" "node_ips" {
   for_each = libvirt_domain.node
   domain   = each.key
@@ -21,7 +20,4 @@ output "node_ip_addr" {
     for k, v in data.libvirt_domain_interface_addresses.node_ips :
     k => v.interfaces[0].addrs[0].addr
   }
-}
-
-data "libvirt_node_devices" "all" {
 }

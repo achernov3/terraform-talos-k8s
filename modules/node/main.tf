@@ -19,9 +19,10 @@ module "image" {
     libvirt = libvirt
   }
 
-  default     = local.default
-  local_image = var.local_image
-  pool        = try(module.pool.pool_settings.name, local.default)
+  default      = local.default
+  cluster_name = var.cluster_name
+  image_url    = var.image_url
+  pool         = try(module.pool.pool_settings.name, local.default)
 
   depends_on = [module.pool]
 }

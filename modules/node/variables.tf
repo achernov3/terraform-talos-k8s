@@ -20,8 +20,8 @@ variable "nodes" {
 }
 
 variable "cluster_name" {
-  default = "Name of kubernetes cluster"
-  type    = string
+  description = "Name of kubernetes cluster"
+  type        = string
 }
 
 variable "network_settings" {
@@ -73,14 +73,9 @@ variable "pool_settings" {
   })
 }
 
-variable "local_image" {
-  description = "Provide path to image. You can use local path or url"
-  type = object({
-    name = string
-    path = string
-  })
+variable "image_url" {
+  type = string
 }
-
 
 variable "memory_unit" {
   description = "General memory unit for node"
