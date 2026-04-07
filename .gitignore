@@ -1,7 +1,9 @@
 NOTES.md
 .terraform/
 .terraform*
-IMAGE_FACTORY.md
 *.tfstate*
+IMAGE_FACTORY.md
 IMPROVEMENTS.md
 HA_SOLUTION.md
+CNI_MODULE.md
+./terraform.lock.hcl

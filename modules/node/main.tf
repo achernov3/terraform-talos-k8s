@@ -114,7 +114,7 @@ resource "libvirt_domain" "node" {
           }
         }
         target = {
-          dev = "vda"
+          dev = local.disk_name
           bus = "virtio"
         }
       },

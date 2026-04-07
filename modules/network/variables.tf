@@ -125,6 +125,6 @@ variable "enabled" {
 
     Default: false
   EOT
-  type    = bool
-  default = false
+  type        = bool
+  default     = false
 }

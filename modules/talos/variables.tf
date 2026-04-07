@@ -59,7 +59,7 @@ variable "control_plane_role" {
 
     Default: "controlplane"
   EOT
-  type = string
+  type        = string
 }
 
 variable "worker_role" {
@@ -72,6 +72,10 @@ variable "worker_role" {
 
     Default: "worker"
   EOT
+  type        = string
+}
+
+variable "disk_name" {
   type = string
 }
 
@@ -355,5 +359,19 @@ variable "default" {
 
     Default: "default"
   EOT
-  type = string
+  type        = string
+}
+
+variable "k8s_network" {
+  type = object({
+    disable_default_cni = optional(bool, true)
+    disable_kube_proxy  = optional(bool, true)
+  })
+  validation {
+    condition = (
+      (var.k8s_network.disable_default_cni == true) ||
+      (var.k8s_network.disable_default_cni == false && var.k8s_network.disable_kube_proxy == false)
+    )
+    error_message = "kube-proxy cannot be disabled when using default CNI. Allowed: (true,*), (false,false)."
+  }
 }

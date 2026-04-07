@@ -5,6 +5,7 @@ module "talos_cluster" {
   control_plane_role = local.control_plane_role
   worker_role        = local.worker_role
   default            = local.default
+  disk_name          = local.disk_name
 
   pool_settings = {
     name = "talos_lab"
@@ -19,6 +20,10 @@ module "talos_cluster" {
     }
   }
   network_settings = null
+  k8s_network = {
+    disable_default_cni = true
+    disable_kube_proxy  = true
+  }
 
   talos_image = {
     factory = {

@@ -12,6 +12,7 @@ module "vm" {
   control_plane_role = var.control_plane_role
   worker_role        = var.worker_role
   default            = var.default
+  disk_name          = var.disk_name
 
   pool_settings = var.pool_settings
 

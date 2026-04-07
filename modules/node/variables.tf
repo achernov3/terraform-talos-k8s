@@ -205,7 +205,7 @@ variable "image_url" {
 
     Example: "/var/lib/libvirt/images/talos-amd64.iso"
   EOT
-  type = string
+  type        = string
 }
 
 variable "memory_unit" {
@@ -238,7 +238,7 @@ variable "control_plane_role" {
 
     Default: "controlplane"
   EOT
-  type = string
+  type        = string
 }
 
 variable "worker_role" {
@@ -251,7 +251,7 @@ variable "worker_role" {
 
     Default: "worker"
   EOT
-  type = string
+  type        = string
 }
 
 variable "default" {
@@ -264,5 +264,9 @@ variable "default" {
 
     Default: "default"
   EOT
+  type        = string
+}
+
+variable "disk_name" {
   type = string
 }

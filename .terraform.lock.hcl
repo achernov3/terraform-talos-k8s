@@ -10,16 +10,16 @@ provider "registry.terraform.io/dmacvicar/libvirt" {
 }
 
 provider "registry.terraform.io/hashicorp/local" {
-  version = "2.7.0"
+  version = "2.8.0"
   hashes = [
-    "h1:2RYa3j7m/0WmET2fqotY4CHxE1Hpk0fgn47/126l+Og=",
+    "h1:KCuj8nPbNP/ofQrAoQIuQ3CP6k+ADpULvxr7dw2PrpM=",
   ]
 }
 
 provider "registry.terraform.io/siderolabs/talos" {
-  version     = "0.10.0"
-  constraints = "0.10.0"
+  version     = "0.10.1"
+  constraints = "0.10.1"
   hashes = [
-    "h1:beRc3A/9lXlTPDFYxNZIgHUFCvqnc1FtnT8Kl8fhZs4=",
+    "h1:1/HTp6cDJWQJzRj8preKQvw3x/qffivOJhZx27OmAig=",
   ]
 }
