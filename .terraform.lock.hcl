@@ -9,6 +9,14 @@ provider "registry.terraform.io/dmacvicar/libvirt" {
   ]
 }
 
+provider "registry.terraform.io/hashicorp/helm" {
+  version     = "3.1.1"
+  constraints = "3.1.1"
+  hashes = [
+    "h1:5b2ojWKT0noujHiweCds37ZreRFRQLNaErdJLusJN88=",
+  ]
+}
+
 provider "registry.terraform.io/hashicorp/local" {
   version = "2.8.0"
   hashes = [

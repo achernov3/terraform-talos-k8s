@@ -8,13 +8,13 @@ data "talos_machine_configuration" "machine_configuration" {
   machine_secrets  = talos_machine_secrets.this.machine_secrets
   config_patches = each.value.role == local.control_plane ? [
     templatefile("${path.module}/files/control-plane.yaml.tftpl", {
-      install_disk         = local.install_disk
+      install_disk        = local.install_disk
       disable_default_cni = var.k8s_network.disable_default_cni
       disable_kube_proxy  = var.k8s_network.disable_kube_proxy
     })
     ] : [
     templatefile("${path.module}/files/worker.yaml.tftpl", {
-      install_disk         = local.install_disk
+      install_disk        = local.install_disk
       disable_default_cni = var.k8s_network.disable_default_cni
       disable_kube_proxy  = var.k8s_network.disable_kube_proxy
     })

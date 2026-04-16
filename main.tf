@@ -53,3 +53,17 @@ module "talos_cluster" {
     }
   }
 }
+
+module "cni" {
+  depends_on = [
+    module.talos_cluster
+  ]
+
+  providers = {
+    helm = helm
+  }
+
+  source = "./infra/modules/cilium"
+
+  cluster_name = "talos_lab"
+}
