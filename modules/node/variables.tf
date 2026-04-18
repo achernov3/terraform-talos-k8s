@@ -268,5 +268,14 @@ variable "default" {
 }
 
 variable "disk_name" {
+  description = <<-EOT
+    Name of the primary disk device for the virtual machines.
+
+    This specifies the target device name for the node's primary storage volume
+    attached to the libvirt domain. Common values are "vda" for VirtIO block devices
+    or "sda" for SCSI/SATA devices.
+
+    Example: "vda"
+  EOT
   type = string
 }
