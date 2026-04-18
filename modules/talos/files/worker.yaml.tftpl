@@ -1,0 +1,15 @@
+machine:
+  install:
+    disk: ${install_disk}
+%{ if disable_default_cni || disable_kube_proxy ~}
+cluster:
+%{ if disable_default_cni ~}
+  network:
+    cni:
+      name: "none"
+%{ endif ~}
+%{ if disable_kube_proxy ~}
+  proxy:
+    disabled: true
+%{ endif ~}
+%{ endif ~}

@@ -6,14 +6,18 @@ data "talos_machine_configuration" "machine_configuration" {
   cluster_endpoint = "https://${module.vm.control_plane_endpoints_list[0]}:6443"
   machine_type     = each.value.role
   machine_secrets  = talos_machine_secrets.this.machine_secrets
-  config_patches = [
-    yamlencode({
-      machine = {
-        install = {
-          disk = "/dev/vda"
-        }
-      }
-    }),
+  config_patches = each.value.role == local.control_plane ? [
+    templatefile("${path.module}/files/control-plane.yaml.tftpl", {
+      install_disk        = local.install_disk
+      disable_default_cni = var.k8s_network.disable_default_cni
+      disable_kube_proxy  = var.k8s_network.disable_kube_proxy
+    })
+    ] : [
+    templatefile("${path.module}/files/worker.yaml.tftpl", {
+      install_disk        = local.install_disk
+      disable_default_cni = var.k8s_network.disable_default_cni
+      disable_kube_proxy  = var.k8s_network.disable_kube_proxy
+    })
   ]
 }
 
@@ -43,26 +47,4 @@ resource "talos_cluster_kubeconfig" "this" {
   depends_on           = [talos_machine_bootstrap.this]
   client_configuration = talos_machine_secrets.this.client_configuration
   node                 = module.vm.control_plane_endpoints_list[0]
-}
-
-resource "local_file" "kubeconfig" {
-  content              = talos_cluster_kubeconfig.this.kubeconfig_raw
-  filename             = "${pathexpand("~")}/.kube/config.d/${var.cluster_name}.yaml"
-  directory_permission = "0755"
-  file_permission      = "0600"
-}
-
-resource "local_file" "talosconfig" {
-  content              = data.talos_client_configuration.this.talos_config
-  filename             = "${pathexpand("~")}/.talos/${var.cluster_name}-config.yaml"
-  directory_permission = "0755"
-  file_permission      = "0600"
-}
-
-resource "local_file" "machineconfig" {
-  for_each             = var.nodes
-  content              = data.talos_machine_configuration.machine_configuration[each.key].machine_configuration
-  filename             = "${pathexpand("~")}/.talos/${var.cluster_name}/${each.key}-machine-config.yaml"
-  directory_permission = "0755"
-  file_permission      = "0600"
 }

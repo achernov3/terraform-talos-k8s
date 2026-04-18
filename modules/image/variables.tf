@@ -23,7 +23,7 @@ variable "image_url" {
 
     Example: "/var/lib/libvirt/images/talos-amd64.iso"
   EOT
-  type = string
+  type        = string
 }
 
 variable "default" {
@@ -36,7 +36,7 @@ variable "default" {
 
     Default: "default"
   EOT
-  type = string
+  type        = string
 }
 
 variable "cluster_name" {

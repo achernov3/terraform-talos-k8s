@@ -205,7 +205,7 @@ variable "image_url" {
 
     Example: "/var/lib/libvirt/images/talos-amd64.iso"
   EOT
-  type = string
+  type        = string
 }
 
 variable "memory_unit" {
@@ -238,7 +238,7 @@ variable "control_plane_role" {
 
     Default: "controlplane"
   EOT
-  type = string
+  type        = string
 }
 
 variable "worker_role" {
@@ -251,7 +251,7 @@ variable "worker_role" {
 
     Default: "worker"
   EOT
-  type = string
+  type        = string
 }
 
 variable "default" {
@@ -263,6 +263,19 @@ variable "default" {
     be customized for multi-provider setups.
 
     Default: "default"
+  EOT
+  type        = string
+}
+
+variable "disk_name" {
+  description = <<-EOT
+    Name of the primary disk device for the virtual machines.
+
+    This specifies the target device name for the node's primary storage volume
+    attached to the libvirt domain. Common values are "vda" for VirtIO block devices
+    or "sda" for SCSI/SATA devices.
+
+    Example: "vda"
   EOT
   type = string
 }

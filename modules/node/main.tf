@@ -15,10 +15,6 @@ module "pool" {
 module "image" {
   source = "../image"
 
-  providers = {
-    libvirt = libvirt
-  }
-
   default      = local.default
   cluster_name = var.cluster_name
   image_url    = var.image_url
@@ -29,10 +25,6 @@ module "image" {
 
 module "volume" {
   source = "../volumes"
-
-  providers = {
-    libvirt = libvirt
-  }
 
   for_each = var.nodes
 
@@ -114,7 +106,7 @@ resource "libvirt_domain" "node" {
           }
         }
         target = {
-          dev = "vda"
+          dev = local.disk_name
           bus = "virtio"
         }
       },

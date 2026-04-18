@@ -59,7 +59,7 @@ variable "control_plane_role" {
 
     Default: "controlplane"
   EOT
-  type = string
+  type        = string
 }
 
 variable "worker_role" {
@@ -72,6 +72,10 @@ variable "worker_role" {
 
     Default: "worker"
   EOT
+  type        = string
+}
+
+variable "disk_name" {
   type = string
 }
 
@@ -355,5 +359,42 @@ variable "default" {
 
     Default: "default"
   EOT
-  type = string
+  type        = string
+}
+
+variable "k8s_network" {
+  description = <<-EOT
+    Kubernetes network configuration for Talos.
+
+    Allows disabling the default CNI (Flannel) and kube-proxy. This is highly
+    recommended when you plan to install a custom CNI such as Cilium, which
+    typically provides its own routing and kube-proxy replacement.
+
+    Attributes:
+
+    - disable_default_cni (bool, optional)
+      If true, Talos will not install its default CNI (Flannel).
+      Nodes will remain in NotReady state until a custom CNI is installed.
+      Default: true
+
+    - disable_kube_proxy (bool, optional)
+      If true, Talos will not run kube-proxy. This requires a CNI that
+      provides kube-proxy replacement (like Cilium).
+      Note: Cannot be true if disable_default_cni is false.
+      Default: true
+
+    Example:
+      k8s_network = { disable_default_cni = true, disable_kube_proxy = true }
+  EOT
+  type = object({
+    disable_default_cni = optional(bool, true)
+    disable_kube_proxy  = optional(bool, true)
+  })
+  validation {
+    condition = (
+      (var.k8s_network.disable_default_cni == true) ||
+      (var.k8s_network.disable_default_cni == false && var.k8s_network.disable_kube_proxy == false)
+    )
+    error_message = "kube-proxy cannot be disabled when using default CNI. Allowed: (true,*), (false,false)."
+  }
 }
