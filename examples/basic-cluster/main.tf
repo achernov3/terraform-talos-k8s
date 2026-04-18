@@ -1,5 +1,5 @@
 module "talos_cluster" {
-  source = "./modules/talos"
+  source = "../../modules/talos"
 
   cluster_name       = "talos_lab"
   control_plane_role = local.control_plane_role
