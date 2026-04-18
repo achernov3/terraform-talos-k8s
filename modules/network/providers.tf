@@ -6,7 +6,3 @@ terraform {
     }
   }
 }
-
-provider "libvirt" {
-  uri = "qemu:///system"
-}

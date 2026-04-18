@@ -15,13 +15,3 @@ terraform {
     }
   }
 }
-
-provider "libvirt" {
-  uri = "qemu:///system"
-}
-
-provider "helm" {
-  kubernetes = {
-    config_path = "${pathexpand("~")}/.kube/config.d/${local.cluster_name}.yaml"
-  }
-}

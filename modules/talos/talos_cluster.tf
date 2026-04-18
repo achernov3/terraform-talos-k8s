@@ -48,25 +48,3 @@ resource "talos_cluster_kubeconfig" "this" {
   client_configuration = talos_machine_secrets.this.client_configuration
   node                 = module.vm.control_plane_endpoints_list[0]
 }
-
-resource "local_file" "kubeconfig" {
-  content              = talos_cluster_kubeconfig.this.kubeconfig_raw
-  filename             = "${pathexpand("~")}/.kube/config.d/${var.cluster_name}.yaml"
-  directory_permission = "0755"
-  file_permission      = "0600"
-}
-
-resource "local_file" "talosconfig" {
-  content              = data.talos_client_configuration.this.talos_config
-  filename             = "${pathexpand("~")}/.talos/${var.cluster_name}-config.yaml"
-  directory_permission = "0755"
-  file_permission      = "0600"
-}
-
-resource "local_file" "machineconfig" {
-  for_each             = var.nodes
-  content              = data.talos_machine_configuration.machine_configuration[each.key].machine_configuration
-  filename             = "${pathexpand("~")}/.talos/${var.cluster_name}/${each.key}-machine-config.yaml"
-  directory_permission = "0755"
-  file_permission      = "0600"
-}

@@ -54,16 +54,24 @@ module "talos_cluster" {
   }
 }
 
-module "cni" {
-  depends_on = [
-    module.talos_cluster
-  ]
+resource "local_file" "kubeconfig" {
+  content              = module.talos_cluster.kube_config
+  filename             = "${pathexpand("~")}/.kube/config.d/${local.cluster_name}.yaml"
+  directory_permission = "0755"
+  file_permission      = "0600"
+}
 
-  providers = {
-    helm = helm
-  }
+resource "local_file" "talosconfig" {
+  content              = module.talos_cluster.talos_config
+  filename             = "${pathexpand("~")}/.talos/${local.cluster_name}-config.yaml"
+  directory_permission = "0755"
+  file_permission      = "0600"
+}
 
-  source = "./infra/modules/cilium"
-
-  cluster_name = "talos_lab"
+resource "local_file" "machineconfig" {
+  for_each             = module.talos_cluster.machine_config
+  content              = each.value
+  filename             = "${pathexpand("~")}/.talos/${local.cluster_name}/${each.key}-machine-config.yaml"
+  directory_permission = "0755"
+  file_permission      = "0600"
 }
